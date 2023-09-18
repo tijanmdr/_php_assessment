@@ -1,6 +1,12 @@
 <?php
 
-$options = getopt("h:u:p:");
+$options = getopt("h:u:p:", ["file", "create_table", "dry_run", "help"]);
+
+if(isset($options['help'])) {
+    echo "Commands: php foobar.php -u username -p password -h hostname --file csv_filepath [--create_table] [--dry_run]\n";
+    echo "--file: Specify the CSV file name\n";
+    exit(0);
+}
 
 // Replace all the configuration with your local configuration
 $host = $options['h'] ?? 'localhost';
