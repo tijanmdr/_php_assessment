@@ -9,10 +9,10 @@ if(isset($options['help'])) {
     exit(0);
 }
 
-// if (!isset($options['u']) || !isset($options['p'])) {
-//     echo "MySQL username and password is required. For more help: php foobar.php --help";
-//     exit(1);
-// }
+if (!isset($options['u']) || !isset($options['p'])) {
+    echo "MySQL username and password is required. For more help: php foobar.php --help";
+    exit(1);
+}
 
 // Replace all the configuration with your local configuration
 $host = $options['h'] ?? 'localhost';
