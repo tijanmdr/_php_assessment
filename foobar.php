@@ -8,8 +8,13 @@ if(isset($options['help'])) {
     exit(0);
 }
 
+if (!isset($options['u']) || !isset($options['p'])) {
+    echo "MySQL username and password is required. For more help: php foobar.php --help";
+    exit(1);
+}
+
 if (!isset($options['file'])) {
-    echo "Please specify a CSV file path with --file option";
+    echo "Please specify a CSV file path with --file option. For more help: php foobar.php --help";
     exit(1);
 }
 
@@ -45,5 +50,23 @@ try {
     echo "Connection successful";
 } catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
+    exit(1);
+}
+
+if (($handle = fopen($options['file'], 'r')) !== false) {
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        $name = capitalizeFirstLetter($data[0]);
+        $surname = capitalizeFirstLetter($data[1]);
+        $email = strtolower(trim($data[2]));
+
+        try {
+
+        } catch (PDOException $e) {
+            echo "Error Message: ".$e->getMessage();
+        }
+        fclose($handle);
+    }
+} else {
+    echo $options['file']. ' could not be opened. Please try again!';
     exit(1);
 }
